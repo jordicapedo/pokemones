@@ -1,4 +1,13 @@
-import Link from 'next/link'
+import NextLink from 'next/link'
+import {
+	Box,
+	Heading,
+	Grid,
+	GridItem,
+	Link,
+	Center,
+	Button,
+} from '@chakra-ui/react'
 
 const Pokemon = ({ pokemon }) => {
 	const id = pokemon.url
@@ -6,28 +15,37 @@ const Pokemon = ({ pokemon }) => {
 		.filter(x => x)
 		.pop()
 	return (
-		<li>
-			<Link href={`/pokemones/${id}`}>{pokemon.name}</Link>
-		</li>
+		<NextLink href={`/pokemones/${id}`}>
+			<Button mb={3} colorScheme='teal' variant='ghost'>
+				{pokemon.name}
+			</Button>
+		</NextLink>
 	)
 }
 
 export default function Pokemones({ pokemones }) {
 	return (
-		<div>
-			<p data-testid='titulo'>Mi App Pokemones</p>
-			<ul>
+		<Box align='center' pt={24}>
+			<Heading as='h1' mb={8}>
+				Pokemones
+			</Heading>
+			<Grid templateColumns='repeat(auto-fit, minmax(200px, 1fr))'>
 				{pokemones.map(pokemon => (
-					<Pokemon pokemon={pokemon} key={pokemon.name} />
+					<GridItem key={pokemon.name}>
+						<Center>
+							<Pokemon pokemon={pokemon} />
+						</Center>
+					</GridItem>
 				))}
-			</ul>
-		</div>
+			</Grid>
+		</Box>
 	)
 }
 
 export const getStaticProps = async () => {
-	const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=151')
+	const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=90')
 	const data = await response.json()
+	console.log(data)
 
 	return {
 		props: { pokemones: data.results },

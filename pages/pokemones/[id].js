@@ -1,6 +1,6 @@
-import Image from 'next/image'
-import Link from 'next/link'
+import NextLink from 'next/link'
 import { useRouter } from 'next/router'
+import { Box, Heading, Image, Button } from '@chakra-ui/react'
 
 const Pokemon = ({ data }) => {
 	const router = useRouter()
@@ -11,13 +11,15 @@ const Pokemon = ({ data }) => {
 	}
 
 	return (
-		<div>
-			<h1>
+		<Box align='center' pt={24}>
+			<Heading as='h2'>
 				{data.name} número #{data.id}
-			</h1>
+			</Heading>
 			<Image src={data.sprites.front_default} width={200} height={200} />
-			<Link href='/'>Volver al inicio</Link>
-		</div>
+			<NextLink href='/' passHref>
+				<Button colorScheme='teal'>Volver al inicio</Button>
+			</NextLink>
+		</Box>
 	)
 }
 
@@ -26,6 +28,7 @@ export default Pokemon
 export const getStaticProps = async ({ params }) => {
 	const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${params.id}`)
 	const data = await response.json()
+	console.log(data)
 	return { props: { data } }
 }
 
@@ -36,10 +39,3 @@ export const getStaticPaths = async () => {
 		fallback: true,
 	}
 }
-
-/*export const getServerSideProps = async ({ params }) => {
-	const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${params.id}`)
-	const data = await response.json()
-	return { props: { data } }
-}
-*/
