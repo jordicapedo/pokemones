@@ -27,7 +27,7 @@ export default function Pokemones({ pokemones }) {
 	return (
 		<Box align='center' pt={24}>
 			<Heading as='h1' mb={8}>
-				Pokemones
+				Pokemons
 			</Heading>
 			<Grid templateColumns='repeat(auto-fit, minmax(200px, 1fr))'>
 				{pokemones.map(pokemon => (

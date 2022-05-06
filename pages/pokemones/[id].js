@@ -12,9 +12,7 @@ const Pokemon = ({ data }) => {
 
 	return (
 		<Box align='center' pt={24}>
-			<Heading as='h2'>
-				{data.name} número #{data.id}
-			</Heading>
+			<Heading as='h2'>{data.name}</Heading>
 			<Image src={data.sprites.front_default} width={200} height={200} />
 			<NextLink href='/' passHref>
 				<Button colorScheme='teal'>Volver al inicio</Button>
